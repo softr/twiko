@@ -96,7 +96,7 @@ class TwikoPackage extends \mako\application\Package
 
         $extension = $this->container->get('config')->get('twiko::config.extension');
 
-        $this->container->get('view')->extend($extension, function() use($container)
+        $this->container->get('view')->registerRenderer($extension, function() use($container)
         {
             $twig = $container->get('twig');
 

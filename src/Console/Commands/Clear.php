@@ -9,8 +9,6 @@ namespace softr\Twiko\Console\Commands;
  */
 class Clear extends \mako\reactor\Command
 {
-    use \mako\syringe\ContainerAwareTrait;
-
     /**
      * Command information.
      *
