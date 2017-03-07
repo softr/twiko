@@ -5,7 +5,6 @@ use Twig_Extension;
 use Twig_SimpleFilter;
 use Twig_SimpleFunction;
 
-use mako\utility\Arr as ArrHelper;
 use mako\utility\Str as StrHelper;
 
 /**
@@ -31,13 +30,13 @@ class Str extends Twig_Extension
     {
         return
         [
-            new Twig_SimpleFunction('arr_*', function($name)
+            new Twig_SimpleFunction('str_*', function($name)
             {
                 $arguments = array_slice(func_get_args(), 1);
 
                 $name = StrHelper::underscored2camel($name);
 
-                return call_user_func_array([ArrHelper::class, $name], $arguments);
+                return call_user_func_array([StrHelper::class, $name], $arguments);
             }),
         ];
     }
@@ -59,7 +58,7 @@ class Str extends Twig_Extension
             {
                 $arguments = array_slice(func_get_args(), 1);
 
-                $name = StrHelper::camel($name);
+                $name = StrHelper::underscored2camel($name);
 
                 return call_user_func_array([StrHelper::class, $name], $arguments);
             }),
