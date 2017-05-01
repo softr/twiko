@@ -41,6 +41,11 @@ class TwigRenderer implements \mako\view\renderers\RendererInterface
         $__view__ = str_replace($paths[0], '', $__view__);
 
         $__view__ = ltrim($__view__, '/');
+        
+        foreach($__variables__ as $key => $value)
+        {
+            $this->twig->addGlobal($key, $value);
+        }
 
         return $this->twig->render(str_replace($paths[0], '', $__view__), $__variables__);
     }
