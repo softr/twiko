@@ -1,6 +1,6 @@
 {
     "name"       : "softr/twiko",
-    "type"       : "library",
+    "type"       : "mako-package",
     "description": "Twig Brige for Mako Framework",
     "keywords"   : ["Twig", "Template Engine", "Mako Framework", "Views"],
     "homepage"   : "https://github.com/softr/twiko",
@@ -12,14 +12,15 @@
             "homepage": "http://www.softr.com.br"
         }
     ],
-    "require": {
-        "mako/framework": "^4.5",
-        "twig/twig": "~1.0"
-    },
     "autoload": {
         "psr-4": {
-            "softr\\Twiko\\": "src/"
+            "softr\\Twiko\\": "classes/"
         }
+    },
+    "require": {
+        "composer/installers": "*",
+        "mako/framework": "^4.1",
+        "twig/twig": "~1.0"
     },
     "minimum-stability": "dev"
 }

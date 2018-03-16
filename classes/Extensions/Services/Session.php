@@ -46,10 +46,11 @@ class Session extends Twig_Extension
         [
             new Twig_SimpleFunction('session_id', [$this->session, 'getId']),
             new Twig_SimpleFunction('session_get', [$this->session, 'get']),
-            new Twig_SimpleFunction('session_pull', [$this->session, 'pull']),
+            new Twig_SimpleFunction('session_remove', [$this->session, 'remove']),
             new Twig_SimpleFunction('session_has', [$this->session, 'has']),
             new Twig_SimpleFunction('session_flash', [$this->session, 'getFlash']),
-            new Twig_SimpleFunction('csrf_token', [$this->session, 'generateOneTimeToken'], ['is_safe' => ['html']]),
+            new Twig_SimpleFunction('session_reflash', [$this->session, 'reflash']),
+            new Twig_SimpleFunction('csrf_token', [$this->session, 'generateToken'], ['is_safe' => ['html']]),
         ];
     }
 }

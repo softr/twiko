@@ -7,43 +7,18 @@ use Twig_Loader_Filesystem;
 use \softr\Twiko\TwigRenderer;
 
 /**
- * Twiko package.
+ * Twiko service.
  *
- * @copyright  Agência Softr <agencia.softr@gmail.com>
  * @license    http://www.makoframework.com/license
  */
-class TwikoPackage extends \mako\application\Package
+class TwikoService extends \mako\application\services\Service
 {
-    /**
-     * Package name.
-     *
-     * @var string
-     */
-    protected $packageName = 'softr/twiko';
-
-    /**
-     * Package namespace.
-     *
-     * @var string
-     */
-    protected $fileNamespace = 'twiko';
-
-    /**
-     * Commands.
-     *
-     * @var array
-     */
-    protected $commands =
-    [
-        'twiko::clear' => 'softr\Twiko\Console\Commands\Clear',
-    ];
-
     /**
      * Register the service.
      *
-     * @access  protected
+     * @access  public
      */
-    protected function bootstrap()
+    public function register()
     {
         $this->initializeRenderer();
 
@@ -62,7 +37,7 @@ class TwikoPackage extends \mako\application\Package
         {
             $environment = $container->get('config')->get('twiko::config.environment', []);
 
-            $loader = new Twig_Loader_Filesystem($container->get('app')->getPath() . '/resources/views/');
+            $loader = new Twig_Loader_Filesystem(MAKO_APPLICATION_PATH . '/views/');
 
             return new Twig_Environment($loader, $environment);
         });
@@ -80,7 +55,7 @@ class TwikoPackage extends \mako\application\Package
 
         foreach($globals as $key => $value)
         {
-            $twig->addGlobal($key, $value);
+            $this->container->get('twig')->addGlobal($key, $value);
         }
     }
 
@@ -96,11 +71,13 @@ class TwikoPackage extends \mako\application\Package
 
         $extension = $this->container->get('config')->get('twiko::config.extension');
 
-        $this->container->get('view')->registerRenderer($extension, function() use($container)
+        $this->container->get('view')->registerRenderer($extension, function($view, $parameters) use($container)
         {
-            $twig = $container->get('twig');
+            $renderer = new TwigRenderer($view, $parameters);
 
-            return new TwigRenderer($twig);
+            $renderer->setTwig($container->get('twig'));
+
+            return $renderer;
         });
     }
 }
