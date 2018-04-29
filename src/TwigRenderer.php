@@ -34,7 +34,7 @@ class TwigRenderer implements \mako\view\renderers\RendererInterface
      * @return string The resulting view.
      * @throws SmartyException should anything fail with template parsing.
      */
-    public function render($__view__, array $__variables__)
+    public function render(string $__view__, array $__variables__): string
     {
         $paths = $this->twig->getLoader()->getPaths();
 

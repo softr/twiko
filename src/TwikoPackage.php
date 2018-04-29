@@ -62,7 +62,7 @@ class TwikoPackage extends \mako\application\Package
         {
             $environment = $container->get('config')->get('twiko::config.environment', []);
 
-            $loader = new Twig_Loader_Filesystem($container->get('app')->getPath() . '/resources/views/');
+            $loader = new Twig_Loader_Filesystem(MAKO_APPLICATION_PATH . '/resources/views/');
 
             return new Twig_Environment($loader, $environment);
         });
@@ -80,7 +80,7 @@ class TwikoPackage extends \mako\application\Package
 
         foreach($globals as $key => $value)
         {
-            $twig->addGlobal($key, $value);
+            $this->container->get('twig')->addGlobal($key, $value);
         }
     }
 
@@ -92,14 +92,12 @@ class TwikoPackage extends \mako\application\Package
      */
     private function registerRenderer()
     {
-        $container = $this->container;
+        $twig = $this->container->get('twig');
 
         $extension = $this->container->get('config')->get('twiko::config.extension');
 
-        $this->container->get('view')->extend($extension, function() use($container)
+        $this->container->get('view')->extend($extension, function() use($twig)
         {
-            $twig = $container->get('twig');
-
             return new TwigRenderer($twig);
         });
     }

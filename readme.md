@@ -47,4 +47,4 @@ This packages provides a command to clear Twig Cache Files. To make use of it si
 
 ## Compatibility
 
-This package is compatible with Mako 4.2, 4.3, 4.4 and 4.5 versions
+This package is compatible with Mako >=5.0 versions
