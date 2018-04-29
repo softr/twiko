@@ -80,7 +80,7 @@ class TwikoPackage extends \mako\application\Package
 
         foreach($globals as $key => $value)
         {
-            $twig->addGlobal($key, $value);
+            $this->container->get('twig')->addGlobal($key, $value);
         }
     }
 
@@ -92,14 +92,12 @@ class TwikoPackage extends \mako\application\Package
      */
     private function registerRenderer()
     {
-        $container = $this->container;
+        $twig = $this->container->get('twig');
 
         $extension = $this->container->get('config')->get('twiko::config.extension');
 
-        $this->container->get('view')->registerRenderer($extension, function() use($container)
+        $this->container->get('view')->registerRenderer($extension, function() use($twig)
         {
-            $twig = $container->get('twig');
-
             return new TwigRenderer($twig);
         });
     }
