@@ -45,6 +45,6 @@ This packages comes with a set of base extensions wich provide core functions su
 
 This packages provides a command to clear Twig Cache Files. To make use of it simply run ``php reactor twiko::clear``
 
-## Limitations
+## Compatibility
 
-This package was tested only with with Mako 5.0
+This package is compatible with Mako 4.2, 4.3, 4.4 and 4.5 versions
