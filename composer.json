@@ -21,5 +21,6 @@
             "softr\\Twiko\\": "src/"
         }
     },
+    "prefer-stable": true,
     "minimum-stability": "dev"
 }

@@ -1,6 +1,11 @@
 <?php
 namespace softr\Twiko\Console\Commands;
 
+use mako\cli\input\Input;
+use mako\cli\output\Output;
+use mako\config\Config;
+use mako\file\FileSystem;
+
 /**
  * Twiko Clear command.
  *
@@ -9,8 +14,6 @@ namespace softr\Twiko\Console\Commands;
  */
 class Clear extends \mako\reactor\Command
 {
-    use \mako\syringe\ContainerAwareTrait;
-
     /**
      * Command information.
      *
@@ -20,6 +23,37 @@ class Clear extends \mako\reactor\Command
     [
         'description' => 'Clear the Twig cache.'
     ];
+
+    /**
+     * Config Instance
+     *
+     * @var  \mako\config\Config
+     */
+    protected $config;
+
+    /**
+     * FileSystem Instance
+     *
+     * @var  \mako\file\FileSystem
+     */
+    protected $fileSystem;
+
+    /**
+     * Constructor
+     *
+     * @param  Input       $input       Input instance
+     * @param  Output      $output      Input instance
+     * @param  Config      $config      Config instance
+     * @param  FileSystem  $fileSystem  FileSystem instance
+     */
+    public function __construct(Input $input, Output $output, Config $config, FileSystem $fileSystem)
+    {
+        parent::__construct($input, $output);
+
+        $this->config = $config;
+
+        $this->fileSystem = $fileSystem;
+    }
 
     /**
      * Prints a greeting.
